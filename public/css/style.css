@@ -1,0 +1,10 @@
+.my-width td {
+    width: 100px;
+}
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: pink;
+}
+.select2-container.req_place .select2-default .select2-chosen {
+    color:#FFF !important;
+}

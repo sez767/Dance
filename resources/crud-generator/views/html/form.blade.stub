@@ -1,0 +1,10 @@
+%%formFieldsHtml%%
+
+<div class="form-group">
+    <input class="btn btn-primary" type="submit" value="{{ $formMode === 'edit' ? 'Update' : 'Create' }}">
+</div>
+
+
+
+
+php artisan crud:generate School —fields='title#string; content#text; address#text; contact#number' —view-path=admin —controller-namespace=Admin —route-group=admin —form-helper=html

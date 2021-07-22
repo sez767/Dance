@@ -1,0 +1,43 @@
+version: "3.3"
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/Nginx.Dockerfile
+    ports: 
+      - 8787:80
+    depends_on:
+      - fpm
+    volumes: 
+      - ./:/var/www/html
+     
+  fpm:
+    build:
+      context: .
+      dockerfile: docker/Fpm.Dockerfile
+    volumes: 
+      - ./:/var/www/html
+      - ./docker/php.ini:/usr/local/etc/php/php.ini
+    depends_on: 
+      - mysql
+          # condition: service_healthy
+    # command: sh -c './wait-for mysql:3306 -- cmd'  
+  mysql:
+    image: mysql:5.7
+    command: --max_allowed_packet=32505856
+    env_file:
+      - .env
+  phpmyadmin:
+    depends_on:
+      - mysql
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8888:80'
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root 
+          
+
+          
